@@ -5,13 +5,7 @@ public class Main {
         World mir = new World();
         mir.addWiseacres(new Wiseacre("Хотабыч"));
         mir.addWiseacres(new Wiseacre("Дамблдор"));
-        mir.addWiseacres(new Wiseacre("Подаван1"));
-//        mir.addWiseacres(new Wiseacre("Подаван2"));
-//        mir.addWiseacres(new Wiseacre("Подаван3"));
-//        mir.addWiseacres(new Wiseacre("Подаван4"));
-//        mir.addWiseacres(new Wiseacre("Подаван5"));
-//        mir.addWiseacres(new Wiseacre("Подаван6"));
-//        mir.addWiseacres(new Wiseacre("Подаван7"));
+        mir.addWiseacres(new Wiseacre("Подаван"));
 
         mir.addTowns(new Town("Новый город", "Моское дно"));
         mir.addTowns(new Town("Новая Атлантида", "Моское дно"));

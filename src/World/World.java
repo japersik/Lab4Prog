@@ -82,7 +82,7 @@ public class World {
                                     newFlag = Wiseacres.get(index).Building();
                                 }
                             }
-                            if (!newFlag && endingResources && !endingSTONE) {
+                            if (!newFlag && endingResources && !endingSTONE && findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5)==null) {
                                 endingSTONE = true;
                                 EventMessage.message("В мире закончились доступные Камни", 1);
                             }
@@ -101,7 +101,7 @@ public class World {
                                     workersMoves(Workers.indexOf(newWorker));
                                 }
                             } else (Wiseacres.get(index)).goToForAWalk();
-                            if (newWorker == null && (endingResources || Workers.size() == 0) && !endingCELLMASS) {
+                            if (newWorker == null && (endingResources || Workers.size() == 0) && !endingCELLMASS && findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5)==null) {
                                 endingCELLMASS = true;
                                 endingResources = true;
                                 EventMessage.message("В мире закончилась доступная Клеточная масса", 1);
@@ -120,7 +120,7 @@ public class World {
                                 newLuminousCreature = Wiseacres.get(index).CreatingLuminousCreature();
 
                             } else (Wiseacres.get(index)).goToForAWalk();
-                            if (newLuminousCreature == null && endingResources && !endingPROTOPLASM) {
+                            if (newLuminousCreature == null && endingResources && !endingPROTOPLASM && findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3)==null) {
                                 endingPROTOPLASM = true;
                                 EventMessage.message("В мире закончилась доступная Протоплазма", 1);
                             }

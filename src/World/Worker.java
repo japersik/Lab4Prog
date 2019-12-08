@@ -8,13 +8,22 @@ public class Worker extends Being {
         number = number + 1;
         System.out.println("Появился Штоггот с именем " + this.name);
     }
+
     public Worker(Wiseacre maker) {
         this(maker, "Безымянный Штоггот № " + number);
     }
 
     public Worker(Wiseacre maker, String nameOfWorker) {
         super(nameOfWorker, maker.getLocality(), maker.getPointX(), maker.pointY);
+        this.maxResourceValues = 5;
 
+    }
+
+    private void levelUp() {
+        if (maxResourceValues < 15) {
+            ++maxResourceValues;
+            EventMessage.message(this.name + " вырос в размерах и увеличил вместимость своего инвентаря на 1 единицу. Текущее значение: " + this.maxResourceValues);
+        }
     }
 
     public void goMine(Mine mineLocality, Town townLocality) throws InterruptedException {
@@ -33,6 +42,7 @@ public class Worker extends Being {
             if (this.myRes.getValue() > 0) {
                 this.myRes.setType(mineLocality.getMineResType());
                 EventMessage.message("Штоггот " + this.name + " добыл " + this.myRes.getValue() + " единиц " + this.myRes.getType().getName(), 0);
+                if (Math.random() > 0.6) this.levelUp();
             }
         } else {
             EventMessage.message("В инвентаре штоггота " + this.name + " есть " + this.myRes.getValue() + " единиц " + this.myRes.getType() + ", поэтому он не может работать в шахте", 0);

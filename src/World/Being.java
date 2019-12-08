@@ -6,7 +6,7 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
     protected Locality locality;
     protected String name;
     protected Resource myRes = new Resource();
-    protected static final int maxResourceValues = 10;
+    protected  int maxResourceValues = 10;
     protected static final double maxSpeed = 10.2;
 
     public Being(String name) {
@@ -162,7 +162,7 @@ public abstract class Being extends Point implements InfoI, ResourceMove {
                 "\nМестоположение: " + locality.getName() +
                 "\nИнвентарь: " + myRes.getType().getName() + " " + myRes.getValue() +
                 "\nКоординаты: " + PointToString() +
-                "\nhashCode: " + hashCode();
+                "\nМаксимальный размер инвентаря: " + maxResourceValues;
 
     }
 

@@ -96,6 +96,7 @@ public class Town extends Locality {
         return "Класс: " + getClass().getName() +
                 "\nТип: " + type.getName() +
                 "\nНазвание: " + name +
+                "\nКоординаты: " +this.PointToString()+
                 "\nМестность: " + location +
                 "\nСклад ресурсов: " + myStone.getType().getName() + " " + myStone.getValue() + ", " + myProtoplasm.getType().getName() + " " + myProtoplasm.getValue() + ", " + myCellMass.getType().getName() + " " + myCellMass.getValue() +
                 "\nКоличество построенных домов: " + Houses.size();

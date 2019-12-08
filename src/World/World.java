@@ -20,7 +20,7 @@ public class World {
         addTowns(oldTown);
 
 
-         addWiseacres(new Wiseacre("Мастер", oldTown));
+        addWiseacres(new Wiseacre("Мастер", oldTown));
         addMines(new Mine("Каменоломня", Resources.STONE, 35, "Глубокая глубина"));
         addMines(new Mine("Чудо-источник Протоплазмы", Resources.PROTOPLASM, 24, "Глубокая глубина"));
         addMines(new Mine("Чудо-источник Клеточной массы", Resources.CELLMASS, 53, "Глубокая глубина"));
@@ -32,18 +32,27 @@ public class World {
             throw new ErrorInTheNumberOfWisearces();
         }
 
-        for (int i = 0; i < Wiseacres.size(); i++) {
-            wiseacresMoves(i);
+        for (Wiseacre i:Wiseacres) {
+            wiseacresMoves(Wiseacres.indexOf(i));
         }
-        for (int i = 0; i < Workers.size(); i++) {
-            workersMoves(i);
+        for (Worker i : Workers) {
+            workersMoves(Workers.indexOf(i));
+            Thread.sleep(100);
         }
         while (true) {
             Thread.sleep(1000);
             if (endingSTONE && endingPROTOPLASM && endingCELLMASS) {
-                Thread.sleep(4000);
+                Thread.sleep(8000);
                 EventMessage.message("В мире были исчерпаны все ресурсы, всё что остаётся делать старцам - гулять или искать новое место жительства...Ведь больше им нечего делать. Счастья нет. Жизнь - боль. Мир-матрица. Всё предрешено...", 1);
-                System.out.println("Информация о мире\n" + this);
+                System.out.println("Информация о мире:\n" + this);
+                System.out.println("Информация о городах:");
+                for (Town i:Towns) {
+                    System.out.println("--------------------\n" +i);
+                }
+                System.out.println("Информация о шахтах:");
+                for (Mine i:Mines) {
+                    System.out.println("--------------------\n" +i);
+                }
                 break;
             }
         }
@@ -55,7 +64,7 @@ public class World {
         Runnable task = () -> {
             try {
                 while (true) {
-                    Thread.sleep(100);
+                    Thread.sleep(300);
                     if (endingSTONE && endingPROTOPLASM && endingCELLMASS) {
                         break;
                     }
@@ -187,7 +196,7 @@ public class World {
             maxResValue = toTown.getResourceValue(typeOfResource);
         } else {
             for (int i = 0; i < Towns.size(); i++) {
-                if (Towns.indexOf(toTown) != i && Towns.get(i).getResourceValue(typeOfResource) > 20) {
+                if (Towns.indexOf(toTown) != i && Towns.get(i).getResourceValue(typeOfResource) > 10) {
                     maxResValue = Towns.get(i).getResourceValue(typeOfResource);
                     TownWithMaxRes = i;
                 }
@@ -252,8 +261,7 @@ public class World {
                 "\nКоличество городов:: " + Towns.size() +
                 "\nКоличество старцев: " + Wiseacres.size() +
                 "\nКоличество рабочих: " + Workers.size() +
-                "\nКоличество светящихся существ: " + LuminousCreature.getAmount() +
-                "\nhashCode: " + hashCode();
+                "\nКоличество светящихся существ: " + LuminousCreature.getAmount();
     }
 
 }

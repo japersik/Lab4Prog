@@ -6,7 +6,7 @@ public class Wiseacre extends Being {
         if (this.locality == null) {
             EventMessage.message("В неизвестном месте с координатами " + this.PointToString() + " объявился новый старец " + this.name);
         } else {
-            EventMessage.message("В месте " + this.locality.getName() + "с координатами " + this.PointToString() + " объявился новый старец " + this.name);
+            EventMessage.message("В месте " + this.locality.getName() + " с координатами " + this.PointToString() + " объявился новый старец " + this.name);
         }
     }
 

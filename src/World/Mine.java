@@ -58,10 +58,10 @@ public class Mine extends Locality {
     public String toString() {
         return "Класс: " + getClass().getName() +
                 "\nТип: " + type.getName() +
+                "\nКоординаты: " +this.PointToString()+
                 "\nНазвание: " + name +
                 "\nМестность: " + location +
-                "\nОстаток ресурсов: " + mineRes.getType().getName() + " " + mineRes.getValue() +
-                "\nhashCode: " + hashCode();
+                "\nОстаток ресурсов: " + mineRes.getType().getName() + " " + mineRes.getValue();
     }
 
     @Override

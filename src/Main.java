@@ -8,7 +8,8 @@ public class Main {
         mir.addWiseacres(new Wiseacre("Подаван"));
 
         mir.addTowns(new Town("Новый город", "Моское дно"));
-        mir.addTowns(new Town("Новая Атлантида", "Моское дно"));
+        mir.addTowns(new Town("Новая Атлантида", "Просто дно"));
+
         mir.addMines(new Mine("Пещера", Resources.STONE, 200, "Морское дно"));
         mir.addMines(new Mine("Лужа протоплазмы", Resources.PROTOPLASM, 57, "Морское дно"));
         mir.addMines(new Mine("Залежи клеточной массы", Resources.CELLMASS, 34, "Морское дно"));

@@ -1,12 +1,13 @@
 package World;
 
 public class Worker extends Being {
-    private static int number;
+    private static int number = 1;
     private Town home;
+    private Wiseacre maker;
 
     {
         number = number + 1;
-        System.out.println("Появился Штоггот с именем " + this.name);
+        System.out.println("Появился Штоггот с именем " + this.name + ". Создатель: " + maker);
     }
 
     public Worker(Wiseacre maker) {
@@ -16,6 +17,7 @@ public class Worker extends Being {
     public Worker(Wiseacre maker, String nameOfWorker) {
         super(nameOfWorker, maker.getLocality(), maker.getPointX(), maker.pointY);
         this.maxResourceValues = 5;
+        this.maker = maker;
 
     }
 

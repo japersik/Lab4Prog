@@ -49,8 +49,7 @@ public class Resource {
     public String toString() {
         return "Класс: " + getClass() +
                 "\n:Ресурс " + type +
-                "\nКоличество: " + value +
-                "\nhashCode: " + hashCode();
+                "\nКоличество: " + value;
     }
 
     @Override

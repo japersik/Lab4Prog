@@ -36,8 +36,7 @@ public class LuminousCreature {
     @Override
     public String toString() {
         return "Класс: " + getClass().getName() +
-                "\nПорядковый номер : " + number +
-                "\nhashCode: " + hashCode();
+                "\nПорядковый номер : " + number;
     }
 
     @Override

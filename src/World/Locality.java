@@ -62,8 +62,7 @@ public abstract class Locality extends Point {
         return "Класс: " + getClass().getName() +
                 "\nТип: " + type.getName() +
                 "\nНазвание: " + name +
-                "\nМестность: " + location +
-                "\nhashCode: " + hashCode();
+                "\nМестность: " + location;
     }
 
     @Override

@@ -28,11 +28,12 @@ public class World {
     }
 
     public void go() throws InterruptedException, ErrorInTheNumberOfWisearces {
+        worldInfo();
+        Thread.sleep(5000);
         if (Wiseacres.size() < 1) {
             throw new ErrorInTheNumberOfWisearces();
         }
-
-        for (Wiseacre i:Wiseacres) {
+        for (Wiseacre i : Wiseacres) {
             wiseacresMoves(Wiseacres.indexOf(i));
         }
         for (Worker i : Workers) {
@@ -42,17 +43,9 @@ public class World {
         while (true) {
             Thread.sleep(1000);
             if (endingSTONE && endingPROTOPLASM && endingCELLMASS) {
-                Thread.sleep(8000);
+                Thread.sleep(9000);
                 EventMessage.message("В мире были исчерпаны все ресурсы, всё что остаётся делать старцам - гулять или искать новое место жительства...Ведь больше им нечего делать. Счастья нет. Жизнь - боль. Мир-матрица. Всё предрешено...", 1);
-                System.out.println("Информация о мире:\n" + this);
-                System.out.println("Информация о городах:");
-                for (Town i:Towns) {
-                    System.out.println("--------------------\n" +i);
-                }
-                System.out.println("Информация о шахтах:");
-                for (Mine i:Mines) {
-                    System.out.println("--------------------\n" +i);
-                }
+                worldInfo();
                 break;
             }
         }
@@ -71,7 +64,7 @@ public class World {
                     Locality hisLocality = Wiseacres.get(index).getLocality();
                     double v1 = Math.random();
                     if (hisLocality != null && hisLocality.getType() == TypeOfLocality.TOWN) {
-                        if (v1 > 0.66 && !endingSTONE) {
+                        if (v1 > 0.66 && (!endingSTONE || findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) != null)) {
                             boolean newFlag = Wiseacres.get(index).Building();
                             if (!newFlag) {
                                 if (findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) != null) {
@@ -82,11 +75,11 @@ public class World {
                                     newFlag = Wiseacres.get(index).Building();
                                 }
                             }
-                            if (!newFlag && endingResources && !endingSTONE && findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5)==null) {
+                            if (!newFlag && endingResources && !endingSTONE && findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) == null) {
                                 endingSTONE = true;
                                 EventMessage.message("В мире закончились доступные Камни", 1);
                             }
-                        } else if (v1 > 0.33 && !endingCELLMASS) {
+                        } else if (v1 > 0.33 && (!endingCELLMASS || findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) != null)) {
                             Worker newWorker = Wiseacres.get(index).CreatingWorkers();
                             if (newWorker != null) {
                                 Workers.add(newWorker);
@@ -101,12 +94,12 @@ public class World {
                                     workersMoves(Workers.indexOf(newWorker));
                                 }
                             } else (Wiseacres.get(index)).goToForAWalk();
-                            if (newWorker == null && (endingResources || Workers.size() == 0) && !endingCELLMASS && findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5)==null) {
+                            if (newWorker == null && (endingResources || Workers.size() == 0) && !endingCELLMASS && findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) == null) {
                                 endingCELLMASS = true;
                                 endingResources = true;
                                 EventMessage.message("В мире закончилась доступная Клеточная масса", 1);
                             }
-                        } else if (v1 > 0.1 && !endingPROTOPLASM) {
+                        } else if (v1 > 0.1 && (!endingPROTOPLASM || findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3) != null)) {
                             LuminousCreature newLuminousCreature = Wiseacres.get(index).CreatingLuminousCreature();
                             if (newLuminousCreature != null) {
                                 ((Town) (Wiseacres.get(index).getLocality())).addLuminousCreature(newLuminousCreature);
@@ -120,7 +113,7 @@ public class World {
                                 newLuminousCreature = Wiseacres.get(index).CreatingLuminousCreature();
 
                             } else (Wiseacres.get(index)).goToForAWalk();
-                            if (newLuminousCreature == null && endingResources && !endingPROTOPLASM && findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3)==null) {
+                            if (newLuminousCreature == null && endingResources && !endingPROTOPLASM && findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3) == null) {
                                 endingPROTOPLASM = true;
                                 EventMessage.message("В мире закончилась доступная Протоплазма", 1);
                             }
@@ -253,6 +246,24 @@ public class World {
 
     public void addWiseacres(Wiseacre wiseacre) {
         this.Wiseacres.add(wiseacre);
+    }
+
+    public void worldInfo() throws InterruptedException {
+        System.out.println("--------------------");
+        System.out.println("Информация о мире:\n" + this);
+        System.out.println("--------------------");
+        System.out.println("Информация о городах:");
+        for (Town i : Towns) {
+            System.out.println("--------------------\n" + i);
+            Thread.sleep(500);
+        }
+        System.out.println("--------------------");
+        System.out.println("Информация о шахтах:");
+        for (Mine i : Mines) {
+            System.out.println("--------------------\n" + i);
+            Thread.sleep(500);
+        }
+        System.out.println("--------------------");
     }
 
     @Override

@@ -22,14 +22,15 @@ public class Wiseacre extends Being {
         super(name, null, x, y);
     }
 
-    public Worker CreatingWorkers() {
+    public Worker CreatingWorkers() throws InterruptedException {
         return this.CreatingWorkers(null);
     }
 
-    public Worker CreatingWorkers(String nameOfWorker) {
+    public Worker CreatingWorkers(String nameOfWorker) throws InterruptedException {
 
         if (myRes.getType() == Resources.CELLMASS & myRes.getValue() >= 5) {
-            EventMessage.message(this.name + " создаёт штоггота");
+            EventMessage.message(this.name + " начинает создавать штоггота");
+            Thread.sleep(500);
             myRes.setValue(myRes.getValue() - 5);
             if (myRes.getValue() == 0) {
                 myRes.setType(Resources.NONE);
@@ -41,13 +42,16 @@ public class Wiseacre extends Being {
             }
         } else {
             EventMessage.message(this.name + " не смог создать штоготта , т.к. не имеит нужных ресурсов(5 клеточной массы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
+            Thread.sleep(500);
             return null;
         }
 
     }
 
-    public LuminousCreature CreatingLuminousCreature() {
+    public LuminousCreature CreatingLuminousCreature() throws InterruptedException {
         if (myRes.getType() == Resources.PROTOPLASM & myRes.getValue() >= 3) {
+            EventMessage.message(this.name + " начинает создавать светящееся существо");
+            Thread.sleep(500);
             myRes.setValue(myRes.getValue() - 3);
             if (myRes.getValue() == 0) {
                 myRes.setType(Resources.NONE);
@@ -55,14 +59,17 @@ public class Wiseacre extends Being {
             return new LuminousCreature(this);
         } else {
             EventMessage.message(this.name + " не смог создать светящееся существо, т.к. не имеет нужных ресурсов(3 протоплазмы).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
+            Thread.sleep(500);
             return null;
         }
     }
 
 
-    public boolean Building() {
+    public boolean Building() throws InterruptedException  {
         if (this.locality != null && this.locality.getType() == TypeOfLocality.TOWN)
             if (myRes.getType() == Resources.STONE & myRes.getValue() >= 5) {
+                EventMessage.message(this.name + " начинает строить дом");
+                Thread.sleep(500);
                 myRes.setValue(myRes.getValue() - 5);
                 if (myRes.getValue() == 0) {
                     myRes.setType(Resources.NONE);
@@ -71,6 +78,7 @@ public class Wiseacre extends Being {
                 return true;
             } else {
                 EventMessage.message(this.name + " не смог построить дом, т.к. не имеет нужных ресурсов(5 камней).Его инвентарь: " + myRes.getValue() + " единиц ресурса " + myRes.getType().getName());
+                Thread.sleep(500);
                 return false;
             }
         else {

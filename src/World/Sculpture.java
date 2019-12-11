@@ -26,8 +26,7 @@ public class Sculpture {
     @Override
     public String toString() {
         return "Класс: " + getClass().getName() +
-                "\nИнформация: " + info +
-                "\nhashCode: " + hashCode();
+                "\nИнформация: " + info;
     }
 
     @Override

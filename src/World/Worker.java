@@ -7,7 +7,7 @@ public class Worker extends Being {
 
     {
         number = number + 1;
-        System.out.println("Появился Штоггот с именем " + this.name + ". Создатель: " + maker);
+
     }
 
     public Worker(Wiseacre maker) {
@@ -18,6 +18,7 @@ public class Worker extends Being {
         super(nameOfWorker, maker.getLocality(), maker.getPointX(), maker.pointY);
         this.maxResourceValues = 5;
         this.maker = maker;
+        System.out.println("Появился Штоггот с именем " + this.name + ". Создатель: " + maker.getName());
 
     }
 

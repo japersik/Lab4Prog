@@ -29,6 +29,7 @@ public class World {
 
     public void go() throws InterruptedException, ErrorInTheNumberOfWisearces {
         worldInfo();
+        System.out.println("Приготовьтесь, глазкам будет больно через 3....2...1....");
         Thread.sleep(5000);
         if (Wiseacres.size() < 1) {
             throw new ErrorInTheNumberOfWisearces();
@@ -45,7 +46,11 @@ public class World {
             if (endingSTONE && endingPROTOPLASM && endingCELLMASS) {
                 Thread.sleep(9000);
                 EventMessage.message("В мире были исчерпаны все ресурсы, всё что остаётся делать старцам - гулять или искать новое место жительства...Ведь больше им нечего делать. Счастья нет. Жизнь - боль. Мир-матрица. Всё предрешено...", 1);
+                Thread.sleep(4000);
                 worldInfo();
+                Thread.sleep(4000);
+                EventMessage.smile();
+                EventMessage.message("Ну, вроде всё. ¯\\_(ツ)_/¯ ",0);
                 break;
             }
         }
@@ -58,13 +63,11 @@ public class World {
             try {
                 while (true) {
                     Thread.sleep(300);
-                    if (endingSTONE && endingPROTOPLASM && endingCELLMASS) {
-                        break;
-                    }
+
                     Locality hisLocality = Wiseacres.get(index).getLocality();
                     double v1 = Math.random();
                     if (hisLocality != null && hisLocality.getType() == TypeOfLocality.TOWN) {
-                        if (v1 > 0.66 && (!endingSTONE || findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) != null)) {
+                        if (v1 > 0.66 && (!endingSTONE | findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) != null)) {
                             boolean newFlag = Wiseacres.get(index).Building();
                             if (!newFlag) {
                                 if (findRecourcesInTowns((Town) hisLocality, Resources.STONE, 5) != null) {
@@ -79,7 +82,7 @@ public class World {
                                 endingSTONE = true;
                                 EventMessage.message("В мире закончились доступные Камни", 1);
                             }
-                        } else if (v1 > 0.33 && (!endingCELLMASS || findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) != null)) {
+                        } else if (v1 > 0.33 && (!endingCELLMASS | findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) != null)) {
                             Worker newWorker = Wiseacres.get(index).CreatingWorkers();
                             if (newWorker != null) {
                                 Workers.add(newWorker);
@@ -94,12 +97,12 @@ public class World {
                                     workersMoves(Workers.indexOf(newWorker));
                                 }
                             } else (Wiseacres.get(index)).goToForAWalk();
-                            if (newWorker == null && (endingResources || Workers.size() == 0) && !endingCELLMASS && findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) == null) {
+                            if (newWorker == null && (endingResources | Workers.size() == 0) && !endingCELLMASS && findRecourcesInTowns((Town) hisLocality, Resources.CELLMASS, 5) == null) {
                                 endingCELLMASS = true;
                                 endingResources = true;
                                 EventMessage.message("В мире закончилась доступная Клеточная масса", 1);
                             }
-                        } else if (v1 > 0.1 && (!endingPROTOPLASM || findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3) != null)) {
+                        } else if (v1 > 0.1 && (!endingPROTOPLASM | findRecourcesInTowns((Town) hisLocality, Resources.PROTOPLASM, 3) != null)) {
                             LuminousCreature newLuminousCreature = Wiseacres.get(index).CreatingLuminousCreature();
                             if (newLuminousCreature != null) {
                                 ((Town) (Wiseacres.get(index).getLocality())).addLuminousCreature(newLuminousCreature);
@@ -119,13 +122,16 @@ public class World {
                             }
                         } else if (v1 > 0.05) {
                             Wiseacres.get(index).goToForAWalk();
+
                         } else {
                             Wiseacres.get(index).Leave();
                         }
                     } else {
                         Wiseacres.get(index).goToLocality(Towns.get((int) Math.floor(Math.random() * (Towns.size()))));
                     }
-
+                    if (endingSTONE && endingPROTOPLASM && endingCELLMASS) {
+                        break;
+                    }
                 }
 
             } catch (InterruptedException e) {
@@ -189,7 +195,7 @@ public class World {
             maxResValue = toTown.getResourceValue(typeOfResource);
         } else {
             for (int i = 0; i < Towns.size(); i++) {
-                if (Towns.indexOf(toTown) != i && Towns.get(i).getResourceValue(typeOfResource) > 10) {
+                if (Towns.indexOf(toTown) != i && Towns.get(i).getResourceValue(typeOfResource) > 6) {
                     maxResValue = Towns.get(i).getResourceValue(typeOfResource);
                     TownWithMaxRes = i;
                 }
